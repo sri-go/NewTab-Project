@@ -1,0 +1,16 @@
+{
+  "name": "getURL",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "googleapis": "^61.0.0"
+  },
+  "devDependencies": {
+    "@google-cloud/functions-framework": "^1.7.1"
+  },
+  "scripts": {
+    "start": "functions-framework --target=getURL"
+  }
+}
