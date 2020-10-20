@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
+import NoteTab from "./note";
 import "./App.css";
 
 function App() {
   const [showSearch, SetShowSearch] = useState(false);
   const [searchedText, SetSearchedText] = useState("");
+
+  const [showNotes, setShowNotes] = useState(false);
 
   const [currentDay, setDay] = useState(theCurrentDay);
   const [currentTime, setTime] = useState(theCurrentTime);
@@ -13,43 +16,42 @@ function App() {
   // Hot Keys to quickly take you to different websites
   // LinkedIn Hotkey
   useHotkeys("l", () => window.location.replace("https://linkedin.com"));
-
   //The Verge Hotkey
   useHotkeys("t", () => window.location.replace("https://theverge.com"));
-
   // YouTube Hotkey
   useHotkeys("y", () => window.location.replace("https://www.youtube.com/"));
-
+  // Show notes tab
+  useHotkeys("n", () => {
+    console.log(showNotes);
+    setShowNotes(true);
+  });
   // Hotkey for for showing search
   useHotkeys("space", () => {
     SetShowSearch(true);
     SetSearchedText("");
   });
-
   // Escape logic, since hotkey escape won't work w/ space
   const handleEsc = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
       SetSearchedText("");
       SetShowSearch(false);
+      setShowNotes(false);
     }
   };
-
   // add event listener for escape key
   useEffect(() => {
-    if (showSearch) {
+    if (showSearch || showNotes) {
       window.addEventListener("keydown", handleEsc);
     }
     return window.removeEventListener("keydown", (e) => {
       console.log(e);
     });
-  }, [showSearch]);
-
+  }, [showSearch || showNotes]);
   // Submit search query to google
   function submitSearch(event: React.FormEvent) {
     window.location.replace("https://www.google.com/search?q=" + searchedText);
     event.preventDefault();
   }
-
   // Get current time as string
   function theCurrentTime(): string {
     const currentD = new Date();
@@ -88,60 +90,74 @@ function App() {
   // import background image data
   const currentBackground = require("./background.json").background;
   return (
-    <section className="hero is-fullheight">
-      <div
-        className="hero-body"
-        style={{
-          width: "100vw",
-          height: "100vh",
-          backgroundSize: "cover",
-          backgroundColor: "black",
-          backgroundImage:
-            "url(data:image/png;base64," + currentBackground + ")",
-        }}
-      >
-        <div className="container">
-          <div className="container has-text-centered">
-            <p className="is-size-6">{currentWeek}</p>
-            <h1 className="is-size-1">{currentTime}</h1>
-            <h1 className="is-size-3">{currentDay}</h1>
-          </div>
-          {showSearch && (
-            <div
-              className="container mt-4"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <form
-                id="search"
-                onSubmit={submitSearch}
-                style={{ width: "50%" }}
-              >
-                <div className="control has-icons-left">
-                  <input
-                    autoFocus
-                    className="input is-rounded is-medium is-static"
-                    style={{ borderColor: "#fbfbfb", color: "#fbfbfb" }}
-                    type="text"
-                    name="search"
-                    placeholder="Search "
-                    onChange={(e: { target: { value: any } }) =>
-                      SetSearchedText(e.target.value)
-                    }
-                    value={searchedText}
-                  />
-                  <span className="icon is-large is-left">
-                    <i className="fas fa-search" />
-                  </span>
-                </div>
-              </form>
+    <>
+      <section className="hero is-fullheight">
+        <div
+          className="hero-body"
+          style={{
+            width: "100vw",
+            height: "100vh",
+            backgroundSize: "cover",
+            backgroundColor: "black",
+            backgroundImage:
+              "url(data:image/png;base64," + currentBackground + ")",
+          }}
+        >
+          <div className="container">
+            <div className="container has-text-centered">
+              <p className="is-size-6">{currentWeek}</p>
+              <h1 className="is-size-1">{currentTime}</h1>
+              <h1 className="is-size-3">{currentDay}</h1>
             </div>
-          )}
+            {showSearch && (
+              <div
+                className="container mt-4"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <form
+                  id="search"
+                  onSubmit={submitSearch}
+                  style={{ width: "50%" }}
+                >
+                  <div className="control has-icons-left">
+                    <input
+                      autoFocus
+                      className="input is-rounded is-medium is-static"
+                      style={{ borderColor: "#fbfbfb", color: "#fbfbfb" }}
+                      type="text"
+                      name="search"
+                      placeholder="Search "
+                      onChange={(e: { target: { value: any } }) =>
+                        SetSearchedText(e.target.value)
+                      }
+                      value={searchedText}
+                    />
+                    <span className="icon is-large is-left">
+                      <i className="fas fa-search" />
+                    </span>
+                  </div>
+                </form>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+      <div
+        className="columns has has-text-centered"
+        style={{ position: "fixed", bottom: "0", width: "100%" }}
+      >
+        <div className="column">
+          <p>"L" LinkedIn</p>
+        </div>
+        <div className="column">
+          <p>"Space": Google Search</p>
         </div>
       </div>
-    </section>
+      <NoteTab showNote={showNotes} />
+    </>
   );
 }
 

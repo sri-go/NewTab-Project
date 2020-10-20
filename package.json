@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/sanitize-html": "^1.27.0",
+    "sanitize-html": "^2.1.0"
+  }
+}
