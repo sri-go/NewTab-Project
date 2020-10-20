@@ -4,6 +4,7 @@ import sanitizeHtml from "sanitize-html";
 const NoteTab = (props) => {
   const { showNote } = props;
 
+  // to do: figure out saving note in local storage
   useEffect(() => {
     // startAutosave();
   }, []);
@@ -18,6 +19,7 @@ const NoteTab = (props) => {
   let noteId: string = window.location.hash.substring(1);
   let noteContainer = document.getElementById("js-note-container");
 
+  // start of note for storage
   const newNote = (): object => {
     const note: note = {};
     note["content"] = "";
@@ -27,6 +29,7 @@ const NoteTab = (props) => {
     return note;
   };
 
+  // saving on first edit
   const startAutosave = () => {
     const returnNote = (event: any) => {
       let noteText = sanitizeHtml(event.target.innerHTML, {
@@ -47,7 +50,8 @@ const NoteTab = (props) => {
         width: "30%",
         backgroundColor: "#141414",
         transform: showNote ? "translateX(0%)" : "translateX(-100%)",
-        transition: "all 0.3s ease-in",
+        transition: "all 0.5s ease-in-out",
+        overflowY: "scroll",
       }}
     >
       <div

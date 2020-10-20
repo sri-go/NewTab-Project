@@ -22,7 +22,6 @@ function App() {
   useHotkeys("y", () => window.location.replace("https://www.youtube.com/"));
   // Show notes tab
   useHotkeys("n", () => {
-    console.log(showNotes);
     setShowNotes(true);
   });
   // Hotkey for for showing search
@@ -30,7 +29,7 @@ function App() {
     SetShowSearch(true);
     SetSearchedText("");
   });
-  // Escape logic, since hotkey escape won't work w/ space
+  // Escape logic for notes and search
   const handleEsc = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
       SetSearchedText("");
