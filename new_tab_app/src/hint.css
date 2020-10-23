@@ -1,0 +1,151 @@
+.hint-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 150px;
+  text-align: center;
+  padding: 0;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hint {
+  background: #222222;
+  border-radius: 16px;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+  width: 150px;
+  -webkit-tap-highlight-color: transparent;
+  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    height 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hint:not(.expand) {
+  cursor: pointer;
+}
+
+.hint:not(.expand):hover {
+  background: #2d2d2d;
+}
+
+.hint-click-container {
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 2px;
+  transition: opacity 200ms 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.hint-click {
+  display: flex;
+  flex-direction: row;
+  transform-origin: 0 0;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Actual Hints Start*/
+.hints-container {
+  opacity: 0;
+  position: absolute;
+  transition: opacity 100ms cubic-bezier(0.4, 0, 1, 1);
+}
+
+.hints-contents {
+  transform: scale(0.55);
+  transform-origin: 0 0;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hints-top-container {
+  background: #0e0e0e;
+  display: flex;
+  flex-direction: row;
+  height: 70px;
+  transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  width: 300px;
+}
+
+.hints-large {
+  color: #8a8a8a;
+  font-size: 16px;
+  line-height: 70px;
+  margin-left: 20px;
+}
+/* Close Button */
+.x-touch {
+  align-items: center;
+  align-self: center;
+  cursor: pointer;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  margin-left: auto;
+  width: 50px;
+}
+.x {
+  background: #d7d7d7;
+  border-radius: 10px;
+  height: 20px;
+  position: relative;
+  width: 20px;
+}
+.x-touch:hover .x {
+  background: #f9f9f9;
+}
+.line1 {
+  background: #505050;
+  height: 12px;
+  position: absolute;
+  transform: translateX(9px) translateY(4px) rotate(45deg);
+  width: 2px;
+}
+.line2 {
+  background: #505050;
+  height: 12px;
+  position: absolute;
+  transform: translateX(9px) translateY(4px) rotate(-45deg);
+  width: 2px;
+}
+
+/* hints content */
+.hints-bottom-container {
+  background: #222222;
+  color: #a4a4a4;
+  font-size: 14px;
+  height: 200px;
+  padding-top: 5px;
+  width: 300px;
+  overflow-x: scroll;
+}
+
+/* Main Container Expanded and Shifted Left */
+.hint-container.expand {
+  right: 160px;
+  border-radius: 6px;
+}
+
+/* Hint Container Expanded */
+.hint.expand {
+  height: 300px;
+  width: 300px;
+}
+
+/* Hide Click Me */
+.expand .hint-click-container {
+  opacity: 0;
+  transition: opacity 100ms cubic-bezier(0.4, 0, 1, 1);
+}
+/*  */
+.expand .hint-click {
+  transform: scale(1.91);
+}
+
+.expand .hints-container {
+  opacity: 1;
+  transition: opacity 200ms 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.expand .hints-contents {
+  transform: scale(1);
+}
