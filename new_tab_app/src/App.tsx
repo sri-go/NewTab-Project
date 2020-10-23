@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-import NoteTab from "./note";
-import "./App.css";
+import NoteTab from "./Note";
+import HintContainer from "./Hint";
 
 function App() {
   const [showSearch, SetShowSearch] = useState(false);
@@ -144,17 +144,7 @@ function App() {
           </div>
         </div>
       </section>
-      <div
-        className="columns has has-text-centered"
-        style={{ position: "fixed", bottom: "0", width: "100%" }}
-      >
-        <div className="column">
-          <p>"L" LinkedIn</p>
-        </div>
-        <div className="column">
-          <p>"Space": Google Search</p>
-        </div>
-      </div>
+      <HintContainer />
       <NoteTab showNote={showNotes} />
     </>
   );
